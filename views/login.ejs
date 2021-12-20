@@ -7,11 +7,10 @@
   <link rel="shortcut icon" href="http://localhost:3000/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="http://localhost:3000/manifest.json">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>MERN Auth App</title>
+  <title>Engifest</title>
   <style type="text/css">
     body {
       margin: 0;
@@ -47,14 +46,35 @@
             class="material-icons left">keyboard_backspace</i> Back to home</a>
         <div class="col s12" style="padding-left: 11.25px;">
           <h4><b>Login</b> below</h4>
-          <p class="grey-text text-darken-1">Don't have an account? <a
-              href="/register">Register</a></p>
+          <p class="grey-text text-darken-1">Don't have an account? <a href="/register">Register</a></p>
+          <% if(typeof registered !='undefined' && registered ) { %>
+            <span class="green-text">Registered Successfully. Please Login.</span>
+            <% } %>
+              <% if(typeof registerError !='undefined' ) { %>
+                <span class="red-text">
+                  <%= registerError.general.error %>
+                </span>
+                <% } %>
         </div>
-        <form novalidate="">
-          <div class="input-field col s12"><input id="email" type="email" class=""><label
-              for="email" class="active">Email</label><span class="red-text"></span></div>
-          <div class="input-field col s12"><input id="password" type="password" class=""><label
-              for="password" class="active">Password</label><span class="red-text"></span></div>
+        <form action="/api/login" method="post">
+          <div class="input-field col s12"><input name="email" id="email" type="email" class="
+            <% if(typeof loginError !='undefined' ) { %>
+              <%= loginError.email.class %>
+            <% } %>
+            "><label for="email" class="active">Email</label><span class="red-text">
+              <% if(typeof loginError !='undefined' ) { %>
+                <%= loginError.email.error %>
+                  <% } %>
+            </span></div>
+          <div class="input-field col s12"><input name="password" id="password" type="password" class="
+            <% if(typeof loginError !='undefined' ) { %>
+              <%= loginError.password.class %>
+            <% } %>
+            "><label for="password" class="active">Password</label><span class="red-text">
+              <% if(typeof loginError !='undefined' ) { %>
+                <%= loginError.password.error %>
+                  <% } %>
+            </span></div>
           <div class="col s12" style="padding-left: 11.25px;"><button type="submit"
               class="btn btn-large waves-effect waves-light hoverable blue accent-3"
               style="width: 150px; border-radius: 3px; letter-spacing: 1.5px; margin-top: 1rem;">Login</button>

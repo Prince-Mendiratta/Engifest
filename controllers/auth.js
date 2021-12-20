@@ -3,6 +3,8 @@ const expressJwt = require('express-jwt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { errorHandler } = require('../helpers/dbError');
+const { authenticate } = require('../helpers/auth')
+const { cookie } = require('js-cookie')
 
 exports.registerController = (req, res) => {
     const { name, email, password, password2 } = req.body;
@@ -66,7 +68,7 @@ exports.registerController = (req, res) => {
                     email,
                     password
                 });
-        
+
                 user.save((err, user) => {
                     if (err) {
                         console.log('Save error', errorHandler(err));
@@ -88,5 +90,79 @@ exports.registerController = (req, res) => {
 }
 
 exports.loginController = (req, res) => {
+    const { email, password } = req.body;
 
+    var loginError = {
+        email: {
+            class: "",
+            error: ""
+        },
+        password: {
+            class: "",
+            error: ""
+        },
+        general: {
+            class: "",
+            error: ""
+        }
+    }
+
+    console.log('--------------------------------------------------')
+    console.log(req.body);
+    console.log('--------------')
+    console.log(loginError)
+    console.log('--------------')
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        console.log(errors.array({ onlyFirstError: true }))
+        console.log('--------------')
+        errors.array({ onlyFirstError: true }).forEach(error => {
+            var errorObject = {};
+            var param = error['param'];
+            errorObject.class = "invalid";
+            errorObject.error = error.msg;
+            loginError[param] = errorObject;
+        })
+        console.log(loginError)
+        console.log('--------------')
+        return res.render('login', { loginError });
+    } else {
+        console.log("No errors.")
+        User.findOne({
+            email
+        }).exec((err, user) => {
+            if (err || !user) {
+                loginError.general.error = "User with this email does not exist. Please signup first."
+                return res.render('login', { loginError });
+            } else if (!user.authenticate(password)) {
+                loginError.general.error = "Wrong Password. Please try again."
+                return res.render('login', { loginError });
+            } else {
+                const token = jwt.sign(
+                    {
+                        _id: user._id
+                    },
+                    process.env.JWT_SECRET,
+                    {
+                        expiresIn: '7d'
+                    }
+                );
+                const { _id, name, email, role } = user;
+
+                var userCookie = {
+                    _id,
+                    name,
+                    email
+                }
+
+                authenticate(token, userCookie);
+
+                res.redirect('/dashboard');
+
+            }
+        });
+    }
+    console.log('--------------------------------------------------')
 }

@@ -25,5 +25,11 @@ exports.validRegister = [
 ]
 
 exports.validLogin = [
-    
+    check('email')
+    .isEmail()
+    .withMessage('Must be a valid email address'),
+    check('password', 'Password is required').notEmpty(),
+    check('password').isLength({
+        min: 6
+    }).withMessage('Password must contain at least 6 characters').matches(/\d/).withMessage('Password must contain a number'),
 ]
