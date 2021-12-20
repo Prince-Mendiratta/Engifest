@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   var referer = req.get('Referrer')
   if(referer){
     try{
-      if(referer.endsWith('/register') && req.get('Host') === "localhost:5000"){
+      if(referer.endsWith('/register') && req.get('Host') === process.env.CLIENT_URL){
         registered = true;
       }
     }catch(err){
