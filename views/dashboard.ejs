@@ -7,11 +7,10 @@
     <link rel="shortcut icon" href="http://localhost:3000/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="http://localhost:3000/manifest.json">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>MERN Auth App</title>
+    <title>Engifest</title>
     <style type="text/css">
         body {
             margin: 0;
@@ -35,19 +34,20 @@
 
     <div class="navbar-fixed">
         <nav class="z-depth-0">
-            <div class="nav-wrapper white"><a class="col s5 brand-logo center black-text" href="http://localhost:3000/"
-                    style="font-family: monospace;"><i class="material-icons">code</i>MERN</a></div>
+          <div class="nav-wrapper white"><a class="col s5 brand-logo center black-text" href="/"
+              style="font-family: monospace;"><img style="max-width:32px; margin-right: 15px;"
+                src="/images/Engifest_Logo.jpg">ENGIFEST</a></div>
         </nav>
-    </div>
+      </div>
 
     <div class="container valign-wrapper" style="height: 75vh;">
         <div class="row">
             <div class="landing-copy col s12 center-align">
-                <h4><b>Hey there,</b> bruh<p class="flow-text grey-text text-darken-1">You are logged into a full-stack
+                <h4><b>Hey there,</b> <%= name %> <p class="flow-text grey-text text-darken-1">You are logged into a full-stack
                         <span style="font-family: monospace;">MERN</span> app 👏
                     </p>
-                </h4><button class="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                    style="width: 150px; border-radius: 3px; letter-spacing: 1.5px; margin-top: 1rem;">Logout</button>
+                </h4><a class="btn btn-large waves-effect waves-light hoverable blue accent-3" href="/signout"
+                    style="width: 150px; border-radius: 3px; letter-spacing: 1.5px; margin-top: 1rem;">Logout</a>
             </div>
         </div>
     </div>

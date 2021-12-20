@@ -47,10 +47,15 @@
           digitally!</h4>
         <p class="flow-text grey-text text-darken-1">Just create your account and confirm your seats to the event</p>
         <br>
-        <div class="col s6"><a class="btn btn-large waves-effect waves-light hoverable blue accent-3" href="/register"
-            style="width: 140px; border-radius: 3px; letter-spacing: 1.5px;">Register</a></div>
-        <div class="col s6"><a class="btn btn-large btn-flat waves-effect white black-text" href="/login"
-            style="width: 140px; border-radius: 3px; letter-spacing: 1.5px;">Log In</a></div>
+        <% if(typeof auth !='undefined' && auth ) { %>
+          <div class="landing-copy col s12 center-align"><a class="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              href="/dashboard" style="width: 150px; border-radius: 3px; letter-spacing: 1.5px; margin-top: 1rem;">Profile</a></div>
+          <% }else{ %>
+            <div class="col s6"><a class="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                href="/register" style="width: 140px; border-radius: 3px; letter-spacing: 1.5px;">Register</a></div>
+            <div class="col s6"><a class="btn btn-large btn-flat waves-effect white black-text" href="/login"
+                style="width: 140px; border-radius: 3px; letter-spacing: 1.5px;">Log In</a></div>
+            <% } %>
       </div>
     </div>
   </div>

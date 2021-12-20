@@ -3,8 +3,7 @@ const expressJwt = require('express-jwt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { errorHandler } = require('../helpers/dbError');
-const { authenticate } = require('../helpers/auth')
-const { cookie } = require('js-cookie')
+
 
 exports.registerController = (req, res) => {
     const { name, email, password, password2 } = req.body;
@@ -142,27 +141,23 @@ exports.loginController = (req, res) => {
             } else {
                 const token = jwt.sign(
                     {
-                        _id: user._id
+                        _id: user._id,
+                        name: user.name
                     },
                     process.env.JWT_SECRET,
                     {
                         expiresIn: '7d'
                     }
                 );
-                const { _id, name, email, role } = user;
-
-                var userCookie = {
-                    _id,
-                    name,
-                    email
-                }
-
-                authenticate(token, userCookie);
-
+                res.cookie('auth', token);
                 res.redirect('/dashboard');
-
             }
         });
     }
     console.log('--------------------------------------------------')
+}
+
+exports.signoutController = (req, res) => {
+    res.clearCookie("auth");
+    res.redirect("/");
 }
