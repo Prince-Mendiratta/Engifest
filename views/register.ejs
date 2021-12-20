@@ -48,43 +48,49 @@
           <h4><b>Register</b> below</h4>
           <p class="grey-text text-darken-1">Already have an account? <a href="/login">Log
               in</a></p>
+          <span class="red-text">
+            <% if(typeof registerError !='undefined' ) { %>
+              <%= registerError.general.error %>
+                <% } %>
+          </span>
         </div>
 
-        <form novalidate="">
-          <div class="input-field col s12"><input id="name" type="text" class="
-            <% if(typeof errors !='undefined' ) { %>
-              <%= errors.name.class %>
+        <form action="/api/register" method="post">
+          <div class="input-field col s12"><input name="name" id="name" type="text" class="
+            <% if(typeof registerError !='undefined' ) { %>
+              <%= registerError.name.class %>
             <% } %>
             " value=""><label for="name">Name</label><span class="red-text">
-              <% if(typeof errors !='undefined' ) { %>
-                <%= errors.name.error %>
+              <% if(typeof registerError !='undefined' ) { %>
+                <%= registerError.name.error %>
                   <% } %>
             </span></div>
-          <div class="input-field col s12"><input id="email" type="email" class="
-            <% if(typeof errors !='undefined' ) { %>
-              <%= errors.email.class %>
+          <div class="input-field col s12"><input name="email" id="email" type="email" class="
+            <% if(typeof registerError !='undefined' ) { %>
+              <%= registerError.email.class %>
             <% } %>
-            " value=""><label for="email">Email</label><span class="red-text"></span>
-            <% if(typeof errors !='undefined' ) { %>
-              <%= errors.email.error %>
-                <% } %>
+            " value=""><label for="email">Email</label><span class="red-text">
+              <% if(typeof registerError !='undefined' ) { %>
+                <%= registerError.email.error %>
+                  <% } %>
+            </span>
           </div>
-          <div class="input-field col s12"><input id="password" type="password" class="
-            <% if(typeof errors !='undefined' ) { %>
-              <%= errors.password.class %>
+          <div class="input-field col s12"><input name="password" id="password" type="password" class="
+            <% if(typeof registerError !='undefined' ) { %>
+              <%= registerError.password.class %>
             <% } %>
             " value=""><label for="password">Password</label><span class="red-text">
-              <% if(typeof errors !='undefined' ) { %>
-                <%= errors.password.error %>
+              <% if(typeof registerError !='undefined' ) { %>
+                <%= registerError.password.error %>
                   <% } %>
             </span></div>
-          <div class="input-field col s12"><input id="password2" type="password" class="
-            <% if(typeof errors !='undefined' ) { %>
-              <%= errors.password2.class %>
+          <div class="input-field col s12"><input name="password2" id="password2" type="password" class="
+            <% if(typeof registerError !='undefined' ) { %>
+              <%= registerError.password2.class %>
             <% } %>
             " value=""><label for="password2">Confirm Password</label><span class="red-text">
-              <% if(typeof errors !='undefined' ) { %>
-                <%= errors.password2.error %>
+              <% if(typeof registerError !='undefined' ) { %>
+                <%= registerError.password2.error %>
                   <% } %>
             </span></div>
           <div class="col s12" style="padding-left: 11.25px;"><button type="submit"
