@@ -50,11 +50,11 @@
           <% if(typeof registered !='undefined' && registered ) { %>
             <span class="green-text">Registered Successfully. Please Login.</span>
             <% } %>
-              <% if(typeof registerError !='undefined' ) { %>
-                <span class="red-text">
-                  <%= registerError.general.error %>
-                </span>
-                <% } %>
+          <% if(typeof loginError !='undefined' ) { %>
+            <span class="red-text">
+              <%= loginError.general.error %>
+            </span>
+            <% } %>
         </div>
         <form action="/api/login" method="post">
           <div class="input-field col s12"><input name="email" id="email" type="email" class="

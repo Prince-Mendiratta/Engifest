@@ -161,3 +161,14 @@ exports.signoutController = (req, res) => {
     res.clearCookie("auth");
     res.redirect("/");
 }
+
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET, // req.user._id
+    algorithms: ['HS256'],
+    getToken: function fromHeaderOrQuerystring (req) {
+        if (req.cookies.auth) {
+            return req.cookies.auth;
+        }
+        return null;
+      }
+});
