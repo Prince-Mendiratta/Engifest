@@ -19,10 +19,10 @@ exports.generateTicket = (req, res) => {
                     }
                     var result = data.replace(/bruhh/g, token_data.name);
 
-                    writeFile(join(__dirname, 'input.tex'), result, 'utf8', function (err) {
+                    writeFile(join(__dirname, 'input2.tex'), result, 'utf8', function (err) {
                         if (err) return console.log(err);
                     });
-                    const input = createReadStream(join(__dirname, 'input.tex'))
+                    const input = createReadStream(join(__dirname, 'input2.tex'))
                     const options = {
                         cmd: 'xelatex',
                         args: ['-jobname=texput'],
